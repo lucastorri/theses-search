@@ -1,15 +1,12 @@
-<form>
-    <input type="text" name="query" />
-    <button onclick="search()">OK</button>
+<form action="/search">
+  <input type="text" name="query" />
+  <input type="submit" name="submit" value="OK">
 </form>
-<script>
-function search() {
-    var query = document.getElementsByName('query')[0];
-    location = location + '/' + query;
-}
 
+<script>
+document.getElementsByName('query')[0].focus();
 /*
-var search = function() {
+var search = function(e) {
   lastSearch = queryField[0].value.trim();
   ws.send(lastSearch);
   location.hash = lastSearch;
