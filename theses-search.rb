@@ -3,6 +3,10 @@ require 'bundler'
 require 'open-uri'
 Bundler.require :default
 
+#configure do
+#  set :public_folder, File.dirname(__FILE__)+'/../public'
+#end
+
 service = 'http://localhost:8123/'
 service_search = service + 'search/%s'
 
