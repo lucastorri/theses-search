@@ -1,0 +1,31 @@
+<form>
+    <input type="text" name="query" />
+    <button onclick="search()">OK</button>
+</form>
+<script>
+function search() {
+    var query = document.getElementsByName('query')[0];
+    location = location + '/' + query;
+}
+
+/*
+var search = function() {
+  lastSearch = queryField[0].value.trim();
+  ws.send(lastSearch);
+  location.hash = lastSearch;
+}
+
+if (location.hash) {
+  queryField[0].value = location.hash.substring(1);
+  setTimeout(search, 500);
+}
+
+queryField.keyup(function() {
+  clearTimeout(searchTimeout);
+  lastSearch !== this.value &&
+        this.value.trim() &&
+        (searchTimeout = setTimeout(search, 500));
+});
+*/
+</script>
+    
