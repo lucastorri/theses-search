@@ -7,10 +7,15 @@
 
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
-    <h2>${id}: </h2>
-    <p>{{html matches}}</p>
+    <h2>${id}</h2>
+    <ul>
+    {{each matches}}
+      <li>{{html $value}}</li>
+    {{/each}}
+    </ul>
   </div>
 </script>
+
 <div id="results" class="row" />
 
 <script src="jquery-1.7.2.min.js"></script>
