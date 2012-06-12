@@ -7,7 +7,7 @@ $(document).ready(function(){
     if(key != 1 && key != 13) 
       return;
     
-    var queryText = $('#query').val();
+    var queryText = $('#query').val().trim();
     if(!queryText) 
       return;
 
