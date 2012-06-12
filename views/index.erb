@@ -8,8 +8,15 @@
 
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
-    <h2>${id}</h2>
-    <a href="/hl?file=${id}&query=${lastQuery()}">preview</a>
+    <h2>
+      ${id}&nbsp;
+      <a href="/hl?file=${id}&query=${lastQuery()}">
+        <button class="btn">
+          <i class="icon-eye-open"></i>
+          Preview
+        </button>
+      </a>
+    </h2>
     <pre class="prettyprint linenums">
       <ul class="linenums">
         {{each matches}}
