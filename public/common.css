@@ -1,10 +1,10 @@
 #search-box {
   height: 36px;
-  padding-top: 10px;
 }
 
 #query {
-  height: 24px;
+  height: 36px;
+  font-size: 20px;
 }
 
 .highlight0 {
