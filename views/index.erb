@@ -8,11 +8,13 @@
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
     <h2>${id}</h2>
-    <ol>
-    {{each matches}}
-      <li>{{html $value}}</li>
-    {{/each}}
-    </ol>
+    <pre class="prettyprint linenums">
+      <ul class="linenums">
+        {{each matches}}
+          <li>{{html $value}}</li>
+        {{/each}}
+      </ul>
+    </pre>
   </div>
 </script>
 
