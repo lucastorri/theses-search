@@ -10,11 +10,13 @@
   <div class="span12 hero-unit">
     <h2>${id}</h2>
     <a href="/hl?file=${id}&query=${lastQuery()}">preview</a>
-    <ol>
-    {{each matches}}
-      <li>{{html $value}}</li>
-    {{/each}}
-    </ol>
+    <pre class="prettyprint linenums">
+      <ul class="linenums">
+        {{each matches}}
+          <li>{{html $value}}</li>
+        {{/each}}
+      </ul>
+    </pre>
   </div>
 </script>
 
