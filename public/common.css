@@ -1,3 +1,44 @@
-body {
-  padding: 20px;
+#search-box {
+  height: 36px;
+  padding-top: 10px;
+}
+
+#query {
+  height: 24px;
+}
+
+.highlight0 {
+  background-color: #ffa
+}
+
+.highlight1 {
+  background-color: #afa
+}
+
+.highlight2 {
+  background-color: #0ff
+}
+
+.highlight3 {
+  background-color: #faa
+}
+
+.highlight4 {
+  background-color: #aff
+}
+
+.highlight6 {
+  background-color: #aaf
+}
+
+.highlight5 {
+  background-color: #fa0
+}
+
+.highlight7 {
+  background-color: #faf
+}
+
+.highlight8 {
+  background-color: #aaf
 }

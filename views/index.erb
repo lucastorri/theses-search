@@ -1,29 +1,21 @@
-<form action="/search" class="well">
-  <div class="input-append">    
-    <input type="text" name="query" placeholder="search..." autofocus="true" class="well" />
-    <input type="submit" name="submit" value="OK" class="btn btn-primary well" />
+<div id="top" class="well form-search row">
+  <div id="logo" class="span3">
+    <h1>Theses Search</h1>
   </div>
-</form>
+  <div id="search-box" class="span3">
+    <input id="query" type="text" name="query" autofocus="true" placeholder="search"/>
+    <button id="search" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
+  </div>
+</div>
 
-<script>
-/*
-var search = function(e) {
-  lastSearch = queryField[0].value.trim();
-  ws.send(lastSearch);
-  location.hash = lastSearch;
-}
-
-if (location.hash) {
-  queryField[0].value = location.hash.substring(1);
-  setTimeout(search, 500);
-}
-
-queryField.keyup(function() {
-  clearTimeout(searchTimeout);
-  lastSearch !== this.value &&
-        this.value.trim() &&
-        (searchTimeout = setTimeout(search, 500));
-});
-*/
+<script id="template" type="text/x-jquery-tmpl"> 
+  <div class="span12 hero-unit">
+    <h2>${id}: </h2>
+    <p>{{html matches}}</p>
+  </div>
 </script>
-    
+<div id="results" class="row" />
+
+<script src="jquery-1.7.2.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<script src="index.js"></script>
