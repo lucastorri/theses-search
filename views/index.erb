@@ -3,11 +3,13 @@
     <input id="query" type="text" name="query" autofocus="true" 
       placeholder="theses search" class="input-large search-query"/>
   </div>
+  <input type="hidden" id="lastQuery"></input>
 </div>
 
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
     <h2>${id}</h2>
+    <a href="/hl?file=${id}&query=${lastQuery()}">preview</a>
     <ol>
     {{each matches}}
       <li>{{html $value}}</li>

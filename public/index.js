@@ -7,6 +7,7 @@ $(document).ready(function(){
       return;
     
     var queryText = $('#query').val().trim();
+    $('#lastQuery').val(queryText);
     if(!queryText) 
       return;
 
@@ -38,3 +39,4 @@ $(document).ready(function(){
   }
 });
 
+function lastQuery() { return $('#lastQuery').val() }
