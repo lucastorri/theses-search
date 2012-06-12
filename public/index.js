@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  $('#search').on('click', search);
   $('#query').on('keydown', search);
 
   function search(event) {
@@ -37,23 +36,5 @@ $(document).ready(function(){
       left: 'auto' // Left position relative to parent in px
     }).spin(element);
   }
-
-  /*var search = function(e) {
-    lastSearch = queryField[0].value.trim();
-    ws.send(lastSearch);
-    location.hash = lastSearch;
-  }
-
-  if(location.hash) {
-    queryField[0].value = location.hash.substring(1);
-    setTimeout(search, 500);
-  }
-
-  queryField.keyup(function() {
-    clearTimeout(searchTimeout);
-    lastSearch !== this.value 
-      && this.value.trim() 
-      && (searchTimeout = setTimeout(search, 500));
-  });*/
 });
 
