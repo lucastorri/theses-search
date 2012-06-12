@@ -5,6 +5,7 @@
 #query {
   height: 36px;
   font-size: 20px;
+  border-radius: 4px;
 }
 
 #results ul {

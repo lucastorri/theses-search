@@ -3,7 +3,7 @@ require 'bundler'
 require 'open-uri'
 Bundler.require :default
 
-service = 'http://10.27.15.13:8123'
+service = 'http://localhost:8123'
 
 def encode query
   query.gsub(' ', '+')
