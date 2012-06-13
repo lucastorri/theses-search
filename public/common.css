@@ -38,6 +38,10 @@ a.accordion-toggle:hover {
   text-decoration: none;
 }
 
+#no-results {
+  margin-left: 10px;
+}
+
 .highlight0 {
   background-color: #ffa
 }

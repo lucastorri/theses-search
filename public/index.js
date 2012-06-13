@@ -35,7 +35,8 @@ $(document).ready(function(){
   }
 
 	function setResponseStatus(response) {
-		response.length == 0 ? $('#no-results').show() : $('#no-results').hide();
+    var warning = $('#no-results');
+		response.length == 0 ? warning.show() : warning.hide();
 	}
 
   function startSpinner(element) {
