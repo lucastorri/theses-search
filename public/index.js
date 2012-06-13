@@ -2,6 +2,7 @@ $(document).ready(function(){
   var charLimit = 140;
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
+	$('#no-results').hide();
 
   function search(event) {
     var key = event.which;
@@ -17,15 +18,20 @@ $(document).ready(function(){
     var spinner = startSpinner($('#results').get(0));
     $.get('/search', { query: queryText }, function(response) {
       spinner.stop();
-      response.forEach(function(e) {
-          e.oneline = [];
-          for(var i = 0; i < e.matches.length; i++) {
-              e.oneline.push(limitTo(e.matches[i], charLimit));
-          }
-      });
-      $('#template').tmpl(response).appendTo('#results');
+			setResponseStatus(response);
+	    response.forEach(function(e) {
+  	  	e.oneline = [];
+    			for(var i = 0; i < e.matches.length; i++) {
+          	e.oneline.push(limitTo(e.matches[i], charLimit));
+      	  }
+	    });
+	    $('#template').tmpl(response).appendTo('#results');
     });
   }
+
+	function setResponseStatus(response) {
+		 response.length == 0 ? $('#no-results').show() : $('#no-results').hide();
+	}
 
   function startSpinner(element) {
     return new Spinner({
