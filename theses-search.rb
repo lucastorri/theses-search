@@ -6,7 +6,7 @@ Bundler.require :default
 service = 'http://10.27.15.13:8123'
 
 def encode query
-  query.gsub(' ', '+')
+  URI.encode(query.gsub(' ', '+'))
 end
 
 get '/' do
