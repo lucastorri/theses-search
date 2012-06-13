@@ -54,8 +54,10 @@ $(document).ready(function(){
 
   function populatePreview() {
     var id = $('#doc').val();
+    var previewContent = $('#preview-content');
+    previewContent.empty();
     $.get('/hl', { file: id, query: lastQuery() }, function(response) {
-      $('#preview-content').html(response.matches[0]);
+      previewContent.html(response.matches[0]);
       $('#preview-title').html(id);
       $('#preview').show();
     });
