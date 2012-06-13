@@ -122,7 +122,6 @@ var limitTo = function() {
             };
             return false;
         };
-    
         var total = function() {
             var t = 0;
             for (var i=0; i < ss.length; i++) {
@@ -130,11 +129,9 @@ var limitTo = function() {
             };
             return t;
         };
-    
         var toString = function() {
             return ss[0].join().join(join);
         };
-    
         return {
             run: function(limit) {
                 for (var i = 0; total() < limit && hasNext(); i = (i+1) % ss.length) {
