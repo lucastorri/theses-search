@@ -10,11 +10,8 @@
   <div class="span12 hero-unit">
     <h2>
       ${id}&nbsp;
-      <a href="/hl?file=${id}&query=${lastQuery()}">
-        <button class="btn">
-          <i class="icon-eye-open"></i>
-          Preview
-        </button>
+      <a class="btn" data-toggle="modal" href="#myModal">
+        <i class="icon-eye-open"></i> Preview
       </a>
     </h2>
     <pre class="prettyprint linenums">
@@ -25,6 +22,20 @@
       </ul>
     </pre>
   </div>
+  
+  <div class="modal hide" id="myModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
 </script>
 
 <div id="results" class="row" />
@@ -32,4 +43,5 @@
 <script src="jquery-1.7.2.min.js"></script>
 <script src="jquery.tmpl.min.js"></script>
 <script src="spin.min.js"></script>
+<script src="bootstrap-modal.js"></script>
 <script src="index.js"></script>
