@@ -42,21 +42,25 @@ var limitTo = function() {
                 }
                 return t;
             },
-            hasNext: function(maxNext) { //TODO maxNext
-                var has = false;
-            
+            hasNext: function(maxNext) {
+                
+                var hasLeft;
                 if (ls) {
-                    has = has || ls.rightIndex() < (li - 1);
+                    hasLeft = ls.rightIndex() < (li - 1);
                 } else {
-                    has = has || li > 0
+                    hasLeft = li > 0;
                 }
+                hasLeft = hasLeft && (words[li - 1] && words[li - 1].str.length < maxNext);
+                
+                var hasRight;
                 if (rs) {
-                    has = has || rs.leftIndex() > (ri + 1);
+                    hasRight = rs.leftIndex() > (ri + 1);
                 } else {
-                    has = has || ri < words.length
-                }
+                    hasRight = ri < words.length;
+                }                
+                hasRight = hasRight && (words[ri + 1] && words[ri + 1].str.length < maxNext);
             
-                return has;
+                return hasLeft || hasRight;
             },
             next: function(maxNext) {
                 if (moveLeft) {
@@ -66,6 +70,7 @@ var limitTo = function() {
                         canNext = ls.rightIndex() < (li - 1);
                     }
                     canNext = canNext && li > 0;
+                    canNext = canNext && (words[li - 1] && words[li - 1].str.length < maxNext);
                 
                     if (canNext && words[--li]) {
                         myWords.unshift(words[li]);
@@ -78,6 +83,7 @@ var limitTo = function() {
                         canNext = rs.leftIndex() > (ri + 1);
                     }
                     canNext = canNext && ri < words.length;
+                    canNext = canNext && (words[ri + 1] && words[ri + 1].str.length < maxNext);
                 
                     if (canNext && words[++ri]) {
                         myWords.push(words[ri]);
@@ -105,7 +111,7 @@ var limitTo = function() {
                 };
                 if (rs) {
                     rs.join(fin);
-                } else if (ri < words.length) {
+                } else if (ri < words.length - 1) {
                     fin.push(dots);
                 }
                 return fin;
@@ -120,9 +126,9 @@ var limitTo = function() {
     }
 
     function StepperGroup(ss) {
-        var hasNext = function() {
+        var hasNext = function(maxNext) {
             for (var i=0; i < ss.length; i++) {
-                if (ss[i].hasNext()) { return true; }
+                if (ss[i].hasNext(maxNext)) { return true; }
             };
             return false;
         };
@@ -138,8 +144,12 @@ var limitTo = function() {
         };
         return {
             run: function(limit) {
-                for (var i = 0; total() < limit && hasNext(); i = (i+1) % ss.length) {
-                    ss[i].next();
+                var t = total();
+                var left = limit - t;
+                for (var i = 0; left > 0 && hasNext(left); i = (i+1) % ss.length) {
+                    ss[i].next(left);
+                    t = total();
+                    left = limit - t
                 }
                 return toString();
             }
