@@ -62,7 +62,7 @@ var limitTo = function() {
             next: function(maxNext) {
                 if (moveLeft && hasLeft(maxNext)) {
                     myWords.unshift(words[--li]);
-                } else if (hasRight(maxNext)){
+                } else if (!moveLeft && hasRight(maxNext)){
                     myWords.push(words[++ri]);
                 }
                 moveLeft = !moveLeft;
