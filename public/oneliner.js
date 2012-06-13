@@ -3,7 +3,7 @@ var s = "W3Schools is <span class=\"highlight0\">optimized</span> for learning, 
 
 var limitTo = function() {
 
-    var highlight = /(<span class="highlight\d">(.*?)<\/span>)/;
+    var highlight = /(<span class="highlight\d">(.*?)<\/span>[^\s]*)/;
     var space = /\s+/;
     var dots = '<span class="dots">...</span>';
     var join = ' ';
@@ -42,19 +42,23 @@ var limitTo = function() {
                 }
                 return t;
             },
-            hasNext: function() {
-                var has = ri < words.length && li > 0;
+            hasNext: function(maxNext) { //TODO maxNext
+                var has = false;
             
-                if (has && ls) {
-                    has = ls.rightIndex() < (li - 1);
+                if (ls) {
+                    has = has || ls.rightIndex() < (li - 1);
+                } else {
+                    has = has || li > 0
                 }
-                if (has && rs) {
-                    has = rs.leftIndex() > (ri + 1);
+                if (rs) {
+                    has = has || rs.leftIndex() > (ri + 1);
+                } else {
+                    has = has || ri < words.length
                 }
             
                 return has;
             },
-            next: function() {
+            next: function(maxNext) {
                 if (moveLeft) {
                 
                     var canNext = true;
@@ -123,7 +127,7 @@ var limitTo = function() {
             return false;
         };
         var total = function() {
-            var t = 0;
+            var t = (ss.length - 1) * (2 + join.length);
             for (var i=0; i < ss.length; i++) {
                 t += ss[i].sum();
             };
@@ -169,7 +173,7 @@ var limitTo = function() {
             }
             return StepperGroup(ss);
         }();
-        return steppers.run(100)
+        return steppers.run(limit)
     };
 }();
 
@@ -183,3 +187,5 @@ var limitTo = function() {
 
 
 console.log(limitTo(s, 100));
+console.log(limitTo("Lucas Bortolaso <span class=\"highlight0\">Torri</span>", 100));
+console.log(limitTo("cos, como prédios e <span class=\"highlight0\">torres</span>, a partir de diversas fotos. Estas técnicas foram implementadas", 130));
