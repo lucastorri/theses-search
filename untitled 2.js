@@ -3,11 +3,12 @@ var s = "W3Schools is <span class=\"highlight0\">optimized</span> for learning, 
 
 var limitTo = function() {
 
-    var r = /(<span class="highlight\d">(.*?)<\/span>)/;
+    var highlight = /(<span class="highlight\d">(.*?)<\/span>)/;
+    var space = /\s+/;
+    var dots = '<span class="dots">...</span>';
+    var join = ' ';
     
     function Match(str, orig) { return { str: str, orig: orig || str }; }
-    
-    var dots = '<span class="dots">...</span>';
     
     function Stepper(index, words, left) {
         var ri = index;
@@ -115,9 +116,6 @@ var limitTo = function() {
     }
 
     function StepperGroup(ss) {
-    
-    
-    
         var hasNext = function() {
             for (var i=0; i < ss.length; i++) {
                 if (ss[i].hasNext()) { return true; }
@@ -134,7 +132,7 @@ var limitTo = function() {
         };
     
         var toString = function() {
-            return ss[0].join().join(' ');
+            return ss[0].join().join(join);
         };
     
         return {
@@ -148,17 +146,17 @@ var limitTo = function() {
     }
    
     return function(s, limit) {
-        var parts = s.split(r);
+        var parts = s.split(highlight);
         
         var allWords = [];
         var matchesIndex = [];
         for (var i = 0; i < parts.length; i++) {
-            if (parts[i].match(r)) {
+            if (parts[i].match(highlight)) {
                 matchesIndex.push(allWords.length);
                 var matched = parts[i];
                 allWords.push(Match(parts[++i], matched));
             } else {
-                var words = parts[i].split(/\s+/);
+                var words = parts[i].split(space);
                 for (var j = 0; j < words.length; j++) {
                     words[j] && allWords.push(Match(words[j]));
                 }
