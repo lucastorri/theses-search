@@ -1,5 +1,7 @@
 var s = "W3Schools is <span class=\"highlight0\">optimized</span> for learning, testing, and training. Examples might be simplified to improve reading and basic understanding.Tutorials, references, and examples are constantly reviewed to <span class=\"highlight0\">avoid</span> errors, but we cannot warrant full correctness of all content.While using this site, you agree to have read and accepted our terms of use and privacy policy.Copyright 1999-2012 by Refsnes Data. <span class=\"highlight0\">All</span> Rights Reserved.";
 
+
+
 var r = /(<span class="highlight\d">(.*?)<\/span>)/;
 
 var parts = s.split(r);
@@ -129,6 +131,39 @@ function Stepper(index, words, left) {
     return self;
 }
 
+function StepperGroup(ss) {
+    
+    
+    
+    var hasNext = function() {
+        for (var i=0; i < ss.length; i++) {
+            if (ss[i].hasNext()) { return true; }
+        };
+        return false;
+    };
+    
+    var total = function() {
+        var t = 0;
+        for (var i=0; i < ss.length; i++) {
+            t += ss[i].sum();
+        };
+        return t;
+    };
+    
+    var toString = function() {
+        return ss[0].join().join(' ');
+    };
+    
+    return {
+        run: function(limit) {
+            for (var i = 0; total() < limit && hasNext(); i = (i+1) % ss.length) {
+                ss[i].next();
+            }
+            return toString();
+        }
+    };
+}
+
 var steppers = function() {
     var ss = [];
     var last = null;
@@ -136,31 +171,7 @@ var steppers = function() {
         last = Stepper(matchesIndex[i], allWords, last);
         ss.push(last)
     }
-    return ss;
+    return StepperGroup(ss);
 }();
 
-
-var limit = 300;
-var total = 0;
-var hasNext = true;
-for (var i = 0; total < limit && hasNext; i = (i+1) % steppers.length) {
-    
-    steppers[i].next();
-    
-    hasNext = function() {
-        for (var i=0; i < steppers.length; i++) {
-            if (steppers[i].hasNext()) { return true; }
-        };
-        return false;
-    }();
-    
-    total = function() {
-        var t = 0;
-        for (var i=0; i < steppers.length; i++) {
-            t += steppers[i].sum();
-        };
-        return t;
-    }();
-}
-
-console.log(steppers[0].join().join(' '));
+console.log(steppers.run(100));
