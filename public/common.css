@@ -17,6 +17,12 @@
   margin-bottom: 10px;
 }
 
+.hero-unit {
+  background-color: white;
+  margin-bottom: 0px;
+  padding: 30px;
+}
+
 .dots {
   font-weight: bold;
   word-spacing: 1ex;
