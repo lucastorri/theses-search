@@ -17,6 +17,13 @@
   margin-bottom: 10px;
 }
 
+.dots {
+  font-weight: bold;
+  word-spacing: 1ex;
+  font-style: italic;
+  font-variant: small-caps;
+}
+
 .highlight0 {
   background-color: #ffa
 }

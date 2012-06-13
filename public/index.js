@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var charLimit = 140;
   $('#query').on('keydown', search);
 
   function search(event) {
@@ -15,6 +16,12 @@ $(document).ready(function(){
     var spinner = startSpinner($('#results').get(0));
     $.get('/search', { query: queryText }, function(response) {
       spinner.stop();
+      response.forEach(function(e) {
+          e.oneline = [];
+          for(var i = 0; i < e.matches.length; i++) {
+              e.oneline.push(limitTo(e.matches[i], charLimit));
+          }
+      });
       $('#template').tmpl(response).appendTo('#results');
     });
   }
