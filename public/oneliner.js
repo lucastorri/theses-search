@@ -119,12 +119,10 @@ var limitTo = function() {
         };
         return {
             run: function(limit) {
-                var t = total();
-                var left = limit - t;
+                var left = limit - total();
                 for (var i = 0; left > 0 && hasNext(left); i = (i+1) % ss.length) {
                     ss[i].next(left);
-                    t = total();
-                    left = limit - t
+                    left = limit - total();
                 }
                 return toString();
             }
