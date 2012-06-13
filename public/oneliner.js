@@ -186,16 +186,8 @@ var limitTo = function() {
         return steppers.run(limit)
     };
 }();
-
-
-
-
-
-
-
-
-
-
+/*
 console.log(limitTo(s, 100));
 console.log(limitTo("Lucas Bortolaso <span class=\"highlight0\">Torri</span>", 100));
 console.log(limitTo("cos, como prédios e <span class=\"highlight0\">torres</span>, a partir de diversas fotos. Estas técnicas foram implementadas", 130));
+*/
