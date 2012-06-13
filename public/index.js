@@ -1,6 +1,7 @@
 $(document).ready(function(){
   var charLimit = 140;
   $('#query').on('keydown', search);
+  $('#preview').on('show', populatePreview);
 
   function search(event) {
     var key = event.which;
@@ -44,6 +45,21 @@ $(document).ready(function(){
       left: 'auto' // Left position relative to parent in px
     }).spin(element);
   }
+
+  function populatePreview() {
+    var id = $('#doc').val();
+    $.get('/hl', { file: id, query: lastQuery() }, function(response) {
+      $('#preview-content').html(response.matches[0]);
+      $('#preview-title').html(id);
+      $('#preview').show();
+    });
+  }
 });
 
-function lastQuery() { return $('#lastQuery').val() }
+function lastQuery() { 
+  return $('#lastQuery').val();
+}
+
+function updateId(id) {
+  $('#doc').val(id);
+}

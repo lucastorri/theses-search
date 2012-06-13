@@ -4,14 +4,15 @@
       placeholder="theses search" class="input-large search-query"/>
   </div>
   <input type="hidden" id="lastQuery"></input>
+  <input type="hidden" id="doc"></input>
 </div>
 
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
     <h2>
       ${id}&nbsp;
-      <a class="btn" data-toggle="modal" href="#myModal">
-        <i class="icon-eye-open"></i> Preview
+      <a class="btn" data-toggle="modal" href="#preview" onclick="updateId('${id}')">
+        <i class="icon-eye-open"></i>
       </a>
     </h2>
     <pre class="prettyprint linenums">
@@ -22,23 +23,19 @@
       </ul>
     </pre>
   </div>
-  
-  <div class="modal hide" id="myModal">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">×</button>
-      <h3>Modal header</h3>
-    </div>
-    <div class="modal-body">
-      <p>One fine body…</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
-    </div>
-  </div>
 </script>
 
-<div id="results" class="row" />
+<div id="results" class="row"></div>
+
+<div id="preview" class="modal hide">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3 id="preview-title"></h3>
+  </div>
+  <div class="modal-body">
+    <pre class="prettyprint linenums" id="preview-content" />
+  </div>
+</div>
 
 <script src="jquery-1.7.2.min.js"></script>
 <script src="jquery.tmpl.min.js"></script>
