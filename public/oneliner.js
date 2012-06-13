@@ -1,6 +1,3 @@
-var s = "W3Schools is <span class=\"highlight0\">optimized</span> for learning, testing, and training. Examples might be simplified to improve reading and basic understanding.Tutorials, references, and examples are constantly reviewed to <span class=\"highlight0\">avoid</span> errors, but we cannot warrant full correctness of all content.While using this site, you agree to have read and accepted our terms of use and privacy policy.Copyright 1999-2012 by Refsnes Data. <span class=\"highlight0\">All</span> Rights Reserved.";
-
-
 var limitTo = function() {
 
     var highlight = /(<span class="highlight\d">(.*?)<\/span>[^\s]*)/;
@@ -160,6 +157,10 @@ var limitTo = function() {
     };
 }();
 
+/*
+var s = "W3Schools is <span class=\"highlight0\">optimized</span> for learning, testing, and training. Examples might be simplified to improve reading and basic understanding.Tutorials, references, and examples are constantly reviewed to <span class=\"highlight0\">avoid</span> errors, but we cannot warrant full correctness of all content.While using this site, you agree to have read and accepted our terms of use and privacy policy.Copyright 1999-2012 by Refsnes Data. <span class=\"highlight0\">All</span> Rights Reserved.";
+
 console.log(limitTo(s, 100));
 console.log(limitTo("Lucas Bortolaso <span class=\"highlight0\">Torri</span>", 100));
 console.log(limitTo("cos, como prédios e <span class=\"highlight0\">torres</span>, a partir de diversas fotos. Estas técnicas foram implementadas", 130));
+*/
