@@ -55,10 +55,10 @@ $(document).ready(function(){
   function populatePreview() {
     var id = $('#doc').val();
     var previewContent = $('#preview-content');
+    $('#preview-title').html(id);
     previewContent.empty();
     $.get('/hl', { file: id, query: lastQuery() }, function(response) {
       previewContent.html(response.matches[0]);
-      $('#preview-title').html(id);
       $('#preview').show();
     });
   }
