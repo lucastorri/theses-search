@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var charLimit = 140;
+  var charLimit = 100;
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
 	$('#no-results').hide();
@@ -17,20 +17,25 @@ $(document).ready(function(){
     $('#results').empty();
     var spinner = startSpinner($('#results').get(0));
     $.get('/search', { query: queryText }, function(response) {
+      var postFix = 0;
+      setResponseStatus(response);
+      $(response).each(function(i, doc) {
+          doc.uniqueId = 'unique' + (postFix++);
+          doc.snipets = [];
+          $(doc.matches).each(function(i, match) {
+            doc.snipets.push({
+              oneline: limitTo(match, charLimit),
+              full: match
+            });
+          });
+      });
       spinner.stop();
-			setResponseStatus(response);
-	    response.forEach(function(e) {
-  	  	e.oneline = [];
-    			for(var i = 0; i < e.matches.length; i++) {
-          	e.oneline.push(limitTo(e.matches[i], charLimit));
-      	  }
-	    });
-	    $('#template').tmpl(response).appendTo('#results');
+      $('#template').tmpl(response).appendTo('#results');
     });
   }
 
 	function setResponseStatus(response) {
-		 response.length == 0 ? $('#no-results').show() : $('#no-results').hide();
+		response.length == 0 ? $('#no-results').show() : $('#no-results').hide();
 	}
 
   function startSpinner(element) {
