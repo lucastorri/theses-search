@@ -36,8 +36,21 @@ $(document).ready(function(){
   }
 
 	function setResponseStatus(response) {
-    var warning = $('#no-results');
-		response.length == 0 ? warning.show() : warning.hide();
+    var notice = $('#no-results');
+    var results = response.length;
+    if(results > 0) {
+      notice.empty();
+      notice.addClass('label-success');
+      notice.removeClass('label-warning');
+      notice.html(results + ' results found');
+    }
+    else {
+      notice.empty();
+      notice.addClass('label-warning');
+      notice.removeClass('label-success');
+      notice.html('No results found');
+    }
+    notice.show();
 	}
 
   function startSpinner(element) {
