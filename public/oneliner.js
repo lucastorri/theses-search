@@ -5,7 +5,7 @@ var limitTo = function() {
 
     var highlight = /(<span class="highlight\d">(.*?)<\/span>[^\s]*)/;
     var space = /\s+/;
-    var dots = '<span class="dots">...</span>';
+    var dots = '<span class="dots">[...]</span>';
     var join = ' ';
     
     function Match(str, orig) { return { str: str, orig: orig || str }; }
