@@ -42,7 +42,7 @@ $(document).ready(function(){
       notice.empty();
       notice.addClass('label-success');
       notice.removeClass('label-warning');
-      notice.html(results + ' results found');
+      notice.html(results + ' result' + (results==1 ? '' : 's') + ' found');
     }
     else {
       notice.empty();
