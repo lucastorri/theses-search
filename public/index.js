@@ -25,7 +25,7 @@ $(document).ready(function(){
           $(doc.matches).each(function(i, match) {
             doc.snipets.push({
               oneline: limitTo(match, charLimit),
-              full: match
+              full: match.trim()
             });
           });
       });

@@ -42,6 +42,10 @@ a.accordion-toggle:hover {
   margin-left: 10px;
 }
 
+pre.prettyprint {
+  margin-bottom: 0px;
+}
+
 .highlight0 {
   background-color: #ffa
 }
