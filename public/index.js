@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var charLimit = 140;
+  var charLimit = 100;
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
 
@@ -16,13 +16,18 @@ $(document).ready(function(){
     $('#results').empty();
     var spinner = startSpinner($('#results').get(0));
     $.get('/search', { query: queryText }, function(response) {
-      spinner.stop();
-      response.forEach(function(e) {
-          e.oneline = [];
-          for(var i = 0; i < e.matches.length; i++) {
-              e.oneline.push(limitTo(e.matches[i], charLimit));
-          }
+      var postFix = 0;
+      $(response).each(function(i, doc) {
+          doc.uniqueId = 'unique' + (postFix++);
+          doc.snipets = [];
+          $(doc.matches).each(function(i, match) {
+            doc.snipets.push({
+              oneline: limitTo(match, charLimit),
+              full: match
+            });
+          });
       });
+      spinner.stop();
       $('#template').tmpl(response).appendTo('#results');
     });
   }

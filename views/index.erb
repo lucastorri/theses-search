@@ -3,9 +3,10 @@
     <input id="query" type="text" name="query" autofocus="true" 
       placeholder="theses search" class="input-large search-query"/>
   </div>
-  <input type="hidden" id="lastQuery"></input>
-  <input type="hidden" id="doc"></input>
 </div>
+
+<input type="hidden" id="lastQuery"></input>
+<input type="hidden" id="doc"></input>
 
 <script id="template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
@@ -15,13 +16,29 @@
         <i class="icon-eye-open"></i>
       </a>
     </h2>
-    <pre class="prettyprint linenums">
-      <ul class="linenums">
-        {{each oneline}}
-          <li>{{html $value}}</li>
-        {{/each}}
-      </ul>
-    </pre>
+
+    <div class="accordion" id="accordion${uniqueId}">
+      {{each snipets}}
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" 
+              data-toggle="collapse" 
+              data-parent="#accordion${uniqueId}" 
+              href="#collapse${uniqueId+$index}">
+              {{html $value.oneline}}
+            </a>
+          </div>
+          <div id="collapse${uniqueId+$index}" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <pre class="prettyprint linenums">
+                {{html $value.full}}
+              </pre>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
   </div>
 </script>
 
@@ -41,5 +58,6 @@
 <script src="jquery.tmpl.min.js"></script>
 <script src="spin.min.js"></script>
 <script src="bootstrap-modal.js"></script>
+<script src="bootstrap-collapse.js"></script>
 <script src="oneliner.js"></script>
 <script src="index.js"></script>
