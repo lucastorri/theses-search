@@ -1,11 +1,20 @@
+.icon-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 #search-box {
   height: 36px;
+  position: relative;
 }
 
 #query {
   height: 36px;
   font-size: 20px;
   border-radius: 4px;
+  padding-left: 30px;
+  width: 400px
 }
 
 #results ul {
