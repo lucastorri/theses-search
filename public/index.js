@@ -41,12 +41,12 @@ $(document).ready(function(){
     if(results > 0) {
       notice.empty();
       notice.addClass('label-success');
-      notice.removeClass('label-warning');
+      notice.removeClass('label-inverse');
       notice.html(results + ' result' + (results==1 ? '' : 's') + ' found');
     }
     else {
       notice.empty();
-      notice.addClass('label-warning');
+      notice.addClass('label-inverse');
       notice.removeClass('label-success');
       notice.html('No results found');
     }
