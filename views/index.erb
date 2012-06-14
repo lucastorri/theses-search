@@ -1,44 +1,4 @@
-<% if puc %>
-  <link rel="stylesheet" href="http://verum.pucrs.br/navbar.css" TYPE="text/css"> 
-  <div id="container" style="width:99%"> 
-    <ul id="navbar"> 
-      <li>
-        <a href="http://www.pucrs.br/" id="pucrs" title="PUCRS" alt="PUCRS">PUCRS</a>
-      </li> 
-      <li>
-        <a href="http://www3.pucrs.br/portal/page/portal/pucrs/Capa/AUniversidade" id="universidade" 
-        title="A Universidade" alt="A Universidade">A Universidade</a>
-      </li> 
-      <li>
-        <a href="http://www3.pucrs.br/portal/page/portal/pucrs/Capa/AdministracaoSuperior" id="adm_superior" title="Administração Superior" alt="Administração Superior">Administração Superior</a>
-      </li> 
-      <li>
-        <a href="http://www3.pucrs.br/portal/page/portal/pucrs/Capa/UnidadesUniversitarias" 
-        id="unidades" title="Unidades Universitárias" alt="Unidades Universitárias">Unidades Universitárias</a>
-      </li> 
-      <li>
-        <a href="http://www3.pucrs.br/portal/page/portal/pucrs/Capa/Graduacao" 
-        id="graduacao" title="Graduação" alt="Graduação">Extensão</a>
-      </li> 
-      <li>
-        <a href="http://www.pucrs.br/pos/" id="pos-graduacao" title="Pós-Graudação" 
-        alt="Pós-Graudação">Pós-Graudação</a>
-      </li> 
-      <li>
-        <a href="http://www.pucrs.br/adm/proex/cursoseeventos/index.htm" id="extensao" 
-        title="Extensão" alt="Extensão">Extensão</a>
-      </li> 
-      <li>
-        <a href="http://www3.pucrs.br/portal/page/portal/biblioteca/Capa" id="biblioteca" 
-        title="Biblioteca" alt="Biblioteca">Biblioteca</a>
-      </li> 
-      <li>
-        <a href="http://www.pucrs.br/vestibular/" id="vestibular" title="Vestibular" 
-        alt="Vestibular">Vestibular</a>
-      </li> 
-    </ul> 
-  </div>
-<% end %>
+<%= erb :pucrs if puc %>
 
 <div id="top" class="well form-search row">
   <div id="search-box" class="span12">
