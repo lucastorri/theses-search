@@ -10,7 +10,7 @@ def encode query
 end
 
 get '/' do
-  erb :index
+  erb :index, :locals => { :puc => false }
 end
 
 get '/search' do
@@ -23,4 +23,8 @@ get '/hl' do
   content_type :json
   uri = "#{service}/hl/#{params[:file]}/#{encode(params[:query])}"
   URI.parse(uri).read
+end
+
+get '/puc' do
+  erb :index, :locals => { :puc => true }
 end
