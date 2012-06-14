@@ -3,6 +3,7 @@ $(document).ready(function(){
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
 	$('#no-results').hide();
+  $('#thesis-submit').on('click', submitThesis);
 
   function search(event) {
     var key = event.which;
@@ -90,4 +91,8 @@ function lastQuery() {
 
 function updateId(id) {
   $('#doc').val(id);
+}
+
+function submitThesis() {
+  $('#thesis-upload').submit();
 }

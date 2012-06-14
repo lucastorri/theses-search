@@ -1,13 +1,19 @@
 <%= erb :pucrs if puc %>
 
 <div id="top" class="well form-search row">
-  <div id="search-box" class="span12">
+  <div id="search-box" class="span8">
     <i class="icon-search"></i>
     <input id="query" type="text" name="query" autofocus="true"
       placeholder="theses search" class="input-large search-query">
 		<span id="no-results" class="label hide"></span>
   </div>
-  <button class="btn btn-inverse">UPLOAD</button>
+
+  <div id="upload-box" class="span4">
+    <form id="thesis-upload" action="/upload" method="POST" enctype="multipart/form-data">
+      <input id="thesis" type="file" name="thesis">
+      <button id="thesis-submit" class="btn btn-inverse">UPLOAD</button>
+    </form>
+  </div>
 </div>
 
 <input type="hidden" id="lastQuery"></input>
