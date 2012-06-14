@@ -5,26 +5,24 @@ Bundler.require :default
 
 service = 'http://127.0.0.1:8123'
 
-def encode query
-  URI.encode(query.gsub(' ', '+'))
+def read uri
+  URI.parse(URI.encode(uri)).read
 end
 
 get '/' do
   erb :index, :locals => { :puc => false }
 end
 
+get '/puc' do
+  erb :index, :locals => { :puc => true }
+end
+
 get '/search' do
   content_type :json
-  uri = "#{service}/search/#{encode(params[:query])}"
-  URI.parse(uri).read
+  read "#{service}/snippets/#{params[:query]}"
 end
 
 get '/hl' do
   content_type :json
-  uri = "#{service}/hl/#{params[:file]}/#{encode(params[:query])}"
-  URI.parse(uri).read
-end
-
-get '/puc' do
-  erb :index, :locals => { :puc => true }
+  read "#{service}/hl/#{params[:file]}/#{params[:query]}"
 end
