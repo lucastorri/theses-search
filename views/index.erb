@@ -74,8 +74,9 @@
         <div class="control-group">
           <label class="control-label" for="thesis-date">Date</label>
           <div class="controls">
-            <input id="thesis-date" type="text" name="date" 
-              value="<%= Time.now.strftime('%d-%m-%Y') %>" data-date-format="dd-mm-yyyy">
+            <% today = Time.now.strftime('%d-%m-%Y') %>
+            <input id="thesis-date" type="text" name="date" value="<%= today %>" 
+              data-date="<%= today %>" data-date-format="dd-mm-yyyy" placeholder="<%= today %>">
           </div>
         </div>
         <div class="control-group">
@@ -106,6 +107,7 @@
 
 <script src="jquery-1.7.2.min.js"></script>
 <script src="jquery.tmpl.min.js"></script>
+<script src="jquery.form.js"></script>
 <script src="spin.min.js"></script>
 <script src="bootstrap-modal.js"></script>
 <script src="bootstrap-collapse.js"></script>
