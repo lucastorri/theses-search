@@ -16,6 +16,7 @@ $(document).ready(function() {
     if(key != 1 && key != 13) 
       return;
     
+    $('#no-results').fadeOut();
     var queryText = $('#query').val().trim();
     $('#lastQuery').val(queryText);
     if(!queryText) 
@@ -57,7 +58,7 @@ $(document).ready(function() {
       notice.removeClass('label-success');
       notice.html('No results found');
     }
-    notice.show();
+    notice.fadeIn();
 	}
 
   function startSpinner(element) {
@@ -91,8 +92,13 @@ $(document).ready(function() {
   }
 
   function thesisSubmited() {
-    alert("TODO success");
+    var status = $('#upload-status');
+    $("#upload").modal('hide');
+    status.fadeIn();
     $('#thesis-upload').resetForm();
+    setInterval(function() {
+      status.fadeOut();
+    }, 5000);
   }
 
   $("#open-upload").click(function () {

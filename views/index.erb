@@ -9,6 +9,7 @@
   </div>
 
   <div id="upload-box" class="span4">
+    <span id="upload-status" class="label label-success hide">Success</span>
     <a id="open-upload" class="btn btn-inverse" title="Upload" data-toggle="modal" href="#upload"><i class="icon-upload icon-white"></i>&nbsp;UPLOAD</a>
   </div>
 </div>
@@ -51,7 +52,7 @@
   </div>
 </script>
 
-<div id="upload" class="modal hide">
+<div id="upload" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Upload</h3>
@@ -95,7 +96,7 @@
 
 <div id="results" class="row"></div>
 
-<div id="preview" class="modal hide">
+<div id="preview" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3 id="preview-title"></h3>
@@ -113,5 +114,6 @@
 <script src="bootstrap-collapse.js"></script>
 <script src="bootstrap-tooltip.js"></script>
 <script src="bootstrap-datepicker.js"></script>
+<script src="bootstrap-transition.js"></script>
 <script src="oneliner.js"></script>
 <script src="index.js"></script>
