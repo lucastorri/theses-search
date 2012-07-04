@@ -80,7 +80,7 @@ $(document).ready(function() {
     $('#preview-title').html(id);
     previewContent.empty();
     $.get('/hl', { file: id, query: lastQuery() }, function(response) {
-      previewContent.html(response.matches[0]);
+      previewContent.html(response[0].matches[0]);
       $('#preview').show();
     });
   }
