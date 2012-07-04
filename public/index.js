@@ -98,6 +98,7 @@ $(document).ready(function() {
   function resetUploadStatus() {
     $('#upload-progress').show();
     $('#upload-progress .bar').width(0).show();
+    $('#thesis-submit').addClass('disabled')
   }
 
   function updateUploadStatus(e, position, total, percent) {
@@ -110,9 +111,10 @@ $(document).ready(function() {
     $("#upload").modal('hide');
     status.fadeIn();
     $('#thesis-upload').resetForm();
+    $('#thesis-submit').removeClass('disabled')
+    $('#upload-progress').hide();
     setInterval(function() {
       status.fadeOut();
-      $('#upload-progress').hide();
     }, 8000);
   }
 
