@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
   var charLimit = 100;
+  var fadeInOutTime = 8000;
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
 	$('#no-results').hide();
@@ -12,7 +13,8 @@ $(document).ready(function() {
   $('#thesis-upload').ajaxForm({
     beforeSend: resetUploadStatus,
     uploadProgress: updateUploadStatus,
-    complete: thesisSubmited
+    success: thesisSubmited,
+    error: uploadError
   });
 
   function search(event) {
@@ -99,26 +101,39 @@ $(document).ready(function() {
     $('#upload-progress').show();
     $('#upload-progress .bar').width(0).show();
     $('#thesis-submit').addClass('disabled')
+    $('#upload-error').hide();
   }
 
   function updateUploadStatus(e, position, total, percent) {
     $('#upload-progress .bar').width(percent + '%');
   }
 
+  function uploadError() {
+    $('#upload-progress').fadeOut();
+    var error = $('#upload-error');
+    error.fadeIn();
+    $('#thesis-submit').removeClass('disabled')
+    setInterval(function() {
+      error.fadeOut();
+    }, fadeInOutTime);
+  }
+
   function thesisSubmited() {
     $('#upload-progress .bar').width('100%');
-    var status = $('#upload-status');
     $("#upload").modal('hide');
+    var status = $('#upload-status');
     status.fadeIn();
     $('#thesis-upload').resetForm();
-    $('#thesis-submit').removeClass('disabled')
+    $('#thesis-submit').removeClass('disabled');
     $('#upload-progress').hide();
     setInterval(function() {
       status.fadeOut();
-    }, 8000);
+    }, fadeInOutTime);
   }
 
   $("#open-upload").click(function () {
+    $('#upload-status').hide();
+    $('#upload-error').hide();
     $("#upload").show();
   });
 });
