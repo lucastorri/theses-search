@@ -86,13 +86,31 @@ $(document).ready(function() {
     }).spin(element);
   }
 
+  function startLoadingSpinner(element) {
+    return new Spinner({
+      lines: 7, // The number of lines to draw
+      length: 2, // The length of each line
+      width: 8, // The line thickness
+      radius: 7, // The radius of the inner circle
+      rotate: 0, // The rotation offset
+      color: '#000', // #rgb or #rrggbb
+      speed: 1, // Rounds per second
+      trail: 70, // Afterglow percentage
+      shadow: false, // Whether to render a shadow
+      hwaccel: true, // Whether to use hardware acceleration
+      className: 'spinner'
+    }).spin(element); 
+  }
+
   function populatePreview() {
     var id = $('#doc').val();
     var previewContent = $('#preview-content');
     $('#preview-title').html(id);
     previewContent.empty();
+    var spinner = startLoadingSpinner(previewContent[0]);
     $.get('/hl', { file: id, query: lastQuery() }, function(response) {
       previewContent.html(response[0].matches[0]);
+      spinner.stop();
       $('#preview').show();
     });
   }
