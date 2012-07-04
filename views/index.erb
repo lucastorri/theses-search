@@ -9,10 +9,7 @@
   </div>
 
   <div id="upload-box" class="span4">
-    <form id="thesis-upload" action="/upload" method="POST" enctype="multipart/form-data">
-      <input id="thesis" type="file" name="thesis">
-      <button id="thesis-submit" class="btn btn-inverse">UPLOAD</button>
-    </form>
+    <a id="open-upload" class="btn btn-inverse" title="Upload" data-toggle="modal" href="#upload"><i class="icon-upload icon-white"></i>&nbsp;UPLOAD</a>
   </div>
 </div>
 
@@ -53,6 +50,19 @@
 
   </div>
 </script>
+
+<div id="upload" class="modal hide">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Upload</h3>
+  </div>
+  <div class="modal-body">
+    <form id="thesis-upload" action="/upload" method="POST" enctype="multipart/form-data">
+      <input id="thesis" type="file" name="thesis">
+      <button id="thesis-submit" class="btn">Upload</button>
+    </form>
+  </div>
+</div>
 
 <div id="results" class="row"></div>
 

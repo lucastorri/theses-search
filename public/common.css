@@ -9,6 +9,10 @@
   position: relative;
 }
 
+#upload-box {
+  text-align: right;
+}
+
 #query {
   height: 36px;
   font-size: 20px;

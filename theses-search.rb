@@ -4,7 +4,7 @@ require 'open-uri'
 Bundler.require :default
 
 service = 'http://127.0.0.1:8123'
-data_dir = ENV['DATA_DIR']
+data_dir = '/Users/lucastorri/tmp/data'
 
 def read uri
   URI.parse(URI.encode(uri)).read
@@ -28,10 +28,6 @@ get '/hl' do
   read "#{service}/hl/#{params[:file]}/#{params[:query]}"
 end
 
-get '/puc' do
-  erb :index, :locals => { :puc => true }
-end
-
 post '/upload' do
   thesis = params[:thesis]
   unless thesis.nil?
@@ -39,5 +35,5 @@ post '/upload' do
       f.write(thesis[:tempfile].read)
     end
   end
-	redirect '/'
+	return
 end

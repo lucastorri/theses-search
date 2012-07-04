@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
   var charLimit = 100;
   $('#query').on('keydown', search);
   $('#preview').on('show', populatePreview);
@@ -83,6 +84,14 @@ $(document).ready(function(){
       $('#preview').show();
     });
   }
+
+  function submitThesis() {
+    $('#thesis-upload').submit();
+  }
+
+  $("#open-upload").click(function () {
+    $("#upload").show();
+  });
 });
 
 function lastQuery() { 
@@ -91,8 +100,4 @@ function lastQuery() {
 
 function updateId(id) {
   $('#doc').val(id);
-}
-
-function submitThesis() {
-  $('#thesis-upload').submit();
 }
