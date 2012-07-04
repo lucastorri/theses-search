@@ -9,7 +9,11 @@ $(document).ready(function() {
   }).click(function() {
     $(this).datepicker('show');
   });
-  $('#thesis-upload').ajaxForm(thesisSubmited);
+  $('#thesis-upload').ajaxForm({
+    beforeSend: resetUploadStatus,
+    uploadProgress: updateUploadStatus,
+    complete: thesisSubmited
+  });
 
   function search(event) {
     var key = event.which;
@@ -91,14 +95,25 @@ $(document).ready(function() {
     });
   }
 
+  function resetUploadStatus() {
+    $('#upload-progress').show();
+    $('#upload-progress .bar').width(0).show();
+  }
+
+  function updateUploadStatus(e, position, total, percent) {
+    $('#upload-progress .bar').width(percent + '%');
+  }
+
   function thesisSubmited() {
+    $('#upload-progress .bar').width('100%');
     var status = $('#upload-status');
     $("#upload").modal('hide');
     status.fadeIn();
     $('#thesis-upload').resetForm();
     setInterval(function() {
       status.fadeOut();
-    }, 5000);
+      $('#upload-progress').hide();
+    }, 8000);
   }
 
   $("#open-upload").click(function () {
