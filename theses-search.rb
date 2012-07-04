@@ -4,7 +4,7 @@ require 'open-uri'
 Bundler.require :default
 
 service = 'http://127.0.0.1:8123'
-data_dir = '/Users/lucastorri/tmp/data'
+data_dir = ENV['DATA_DIR']
 
 def read uri
   URI.parse(URI.encode(uri)).read
