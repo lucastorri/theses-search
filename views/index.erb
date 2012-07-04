@@ -62,19 +62,20 @@
         <div class="control-group">
           <label class="control-label" for="thesis-title">Title</label>
           <div class="controls">
-            <input id="thesis-title" type="text" name="title" placeholder="On the Origin of Species">
+            <input id="thesis-title" type="text" name="title" placeholder="Some nice title">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="thesis-author">Author(s)</label>
           <div class="controls">
-            <input id="thesis-author" type="text" name="author" placeholder="Charles Robert Darwin">
+            <input id="thesis-author" type="text" name="author" placeholder="John Doe">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="thesis-date">Date</label>
           <div class="controls">
-            <input id="thesis-date" type="text" name="date" placeholder="24/11/1859">
+            <input id="thesis-date" type="text" name="date" 
+              value="<%= Time.now.strftime('%d-%m-%Y') %>" data-date-format="dd-mm-yyyy">
           </div>
         </div>
         <div class="control-group">
@@ -109,5 +110,6 @@
 <script src="bootstrap-modal.js"></script>
 <script src="bootstrap-collapse.js"></script>
 <script src="bootstrap-tooltip.js"></script>
+<script src="bootstrap-datepicker.js"></script>
 <script src="oneliner.js"></script>
 <script src="index.js"></script>

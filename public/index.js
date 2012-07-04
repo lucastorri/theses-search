@@ -5,6 +5,11 @@ $(document).ready(function() {
   $('#preview').on('show', populatePreview);
 	$('#no-results').hide();
   $('#thesis-submit').on('click', submitThesis);
+  $('#thesis-date').datepicker().on('changeDate', function() {
+    $(this).datepicker('hide');
+  }).click(function() {
+    $(this).datepicker('show');
+  });
 
   function search(event) {
     var key = event.which;
