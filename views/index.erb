@@ -58,8 +58,18 @@
   </div>
   <div class="modal-body">
     <form id="thesis-upload" action="/upload" method="POST" enctype="multipart/form-data">
-      <input id="thesis" type="file" name="thesis">
-      <button id="thesis-submit" class="btn">Upload</button>
+      <fieldset>
+        <label for="thesis-title">Title</label>
+        <input id="thesis-title" type="text" name="title">
+        <label for="thesis-author">Author(s)</label>
+        <input id="thesis-author" type="text" name="author">
+        <label for="thesis-date">Date</label>
+        <input id="thesis-date" type="text" name="date">
+        <label for="thesis-doc">Document</label>
+        <input id="thesis-doc" type="file" name="doc">
+        <br/>
+        <button id="thesis-submit" class="btn">Upload</button>
+      </fieldset>
     </form>
   </div>
 </div>

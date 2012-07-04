@@ -28,12 +28,20 @@ get '/hl' do
   read "#{service}/hl/#{params[:file]}/#{params[:query]}"
 end
 
+def metadata m
+  <<-EOS.gsub(/^ */, '').strip
+    title=#{m[:title]}
+    author=#{m[:author]}
+    date=#{m[:date]}
+  EOS
+end
+
 post '/upload' do
-  thesis = params[:thesis]
+  thesis = params[:doc]
   unless thesis.nil?
-    File.open(data_dir + '/' + thesis[:filename], "w") do |f|
-      f.write(thesis[:tempfile].read)
-    end
+    file = data_dir + '/' + thesis[:filename]
+    File.open(file, "w") { |f| f.write(thesis[:tempfile].read) } # move instead of read/write ?
+    File.open(file + '.metadata', "w") { |f| f.write(metadata(params)) }
   end
 	return
 end
