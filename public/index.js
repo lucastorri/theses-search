@@ -3,7 +3,7 @@ $(document).ready(function() {
   var charLimit = 100;
   var fadeInOutTime = 8000;
   $('#query').on('keydown', search);
-  $('#preview').on('show', populatePreview);
+  $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
   $('#thesis-date').datepicker().on('changeDate', function() {
     $(this).datepicker('hide');
@@ -53,6 +53,7 @@ $(document).ready(function() {
       });
       spinner.stop();
       $('#doc-template').tmpl(response).appendTo('#results');
+      $('.doc-preview').click(populatePreview);
       animateSnippetLoad();
       $('.ttip').tooltip()
     });
@@ -124,15 +125,19 @@ $(document).ready(function() {
     }).spin(element); 
   }
 
-  function populatePreview() {
-    var id = $('#doc').val();
+  var previewSpinner;
+
+  function preparePreview() {
     var previewContent = $('#preview-content');
-    $('#preview-title').html(id);
-    previewContent.empty();
-    var spinner = startLoadingSpinner(previewContent[0]);
-    $.get('/hl', { file: id, query: lastQuery() }, function(response) {
-      previewContent.html(response[0].matches[0]);
-      spinner.stop();
+    previewSpinner = startLoadingSpinner(previewContent.empty()[0]);
+  }
+
+  function populatePreview() {
+    var e = $(this);
+    $('#preview-title').html(e.data('name'));
+    $.get('/hl', { file: e.data('id'), query: lastQuery() }, function(response) {
+      $('#preview-content').html(response[0].matches[0]);
+      previewSpinner.stop();
       $('#preview').show();
     });
   }
@@ -171,17 +176,13 @@ $(document).ready(function() {
     }, fadeInOutTime);
   }
 
+  function lastQuery() { 
+    return $('#lastQuery').val();
+  }
+
   $("#open-upload").click(function () {
     $('#upload-status').hide();
     $('#upload-error').hide();
     $("#upload").show();
   });
 });
-
-function lastQuery() { 
-  return $('#lastQuery').val();
-}
-
-function updateId(id) {
-  $('#doc').val(id);
-}
