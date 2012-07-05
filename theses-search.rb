@@ -20,7 +20,12 @@ end
 
 get '/search' do
   content_type :json
-  read "#{service}/snippets/#{params[:query]}"
+  read "#{service}/search/#{params[:query]}"
+end
+
+get '/snippets' do
+  content_type :json
+  read "#{service}/snippets/#{params[:id]}/#{params[:query]}"
 end
 
 get '/hl' do

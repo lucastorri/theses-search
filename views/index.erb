@@ -17,10 +17,10 @@
 <input type="hidden" id="lastQuery"></input>
 <input type="hidden" id="doc"></input>
 
-<script id="template" type="text/x-jquery-tmpl"> 
+<script id="doc-template" type="text/x-jquery-tmpl"> 
   <div class="span12 hero-unit">
     <h2>
-      ${id}&nbsp;
+      ${name}&nbsp;
       <a class="btn ttip" rel="contents" title="Preview" data-toggle="modal" href="#preview" onclick="updateId('${id}')">
         <i class="icon-eye-open"></i>
       </a>
@@ -29,27 +29,28 @@
       </a>
     </h2>
 
-    <div class="accordion" id="accordion${uniqueId}">
-      {{each snipets}}
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" 
-              data-toggle="collapse" 
-              data-parent="#accordion${uniqueId}" 
-              href="#collapse${uniqueId+$index}">
-              {{html $value.oneline}}
-            </a>
-          </div>
-          <div id="collapse${uniqueId+$index}" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <pre class="prettyprint linenums">{{html $value.full}}</pre>
-            </div>
-          </div>
-        </div>
-      {{/each}}
-    </div>
-
+    <div id="accordion${uniqueId}" class="accordion"></div>
   </div>
+</script>
+
+<script id="matches-template" type="text/x-jquery-tmpl">
+  {{each snipets}}
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" 
+          data-toggle="collapse" 
+          data-parent="#accordion${uniqueId}" 
+          href="#collapse${uniqueId+$index}">
+          {{html $value.oneline}}
+        </a>
+      </div>
+      <div id="collapse${uniqueId+$index}" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <pre class="prettyprint linenums">{{html $value.full}}</pre>
+        </div>
+      </div>
+    </div>
+  {{/each}}
 </script>
 
 <div id="upload" class="modal hide fade">
@@ -93,7 +94,7 @@
       </fieldset>
     </form>
     <div id="upload-progress" class="progress progress-striped active hide">
-      <div class="bar" style="width: 40%;"></div>
+      <div class="bar"></div>
     </div>
   </div>
 </div>

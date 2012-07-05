@@ -35,16 +35,23 @@ $(document).ready(function() {
       setResponseStatus(response);
       $(response).each(function(i, doc) {
           doc.uniqueId = 'unique' + (postFix++);
-          doc.snipets = [];
-          $(doc.matches).each(function(i, match) {
-            doc.snipets.push({
-              oneline: limitTo(match, charLimit),
-              full: match.trim()
+          doc.name = doc.metadata.title || doc.id;
+
+          $.get('/snippets', { id: doc.id, query: queryText }, function(snippets) {
+            var snippet = snippets[0];
+            snippet.uniqueId = doc.uniqueId;
+            snippet.snipets = [];
+            $(snippet.matches).each(function(i, match) {
+              snippet.snipets.push({
+                oneline: limitTo(match, charLimit),
+                full: match.trim()
+              });
             });
+            $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
           });
       });
       spinner.stop();
-      $('#template').tmpl(response).appendTo('#results');
+      $('#doc-template').tmpl(response).appendTo('#results');
       $('.ttip').tooltip()
     });
   }
@@ -52,14 +59,13 @@ $(document).ready(function() {
 	function setResponseStatus(response) {
     var notice = $('#no-results');
     var results = response.length;
+    notice.empty();
     if(results > 0) {
-      notice.empty();
       notice.addClass('label-success');
       notice.removeClass('label-inverse');
       notice.html(results + ' result' + (results==1 ? '' : 's') + ' found');
     }
     else {
-      notice.empty();
       notice.addClass('label-inverse');
       notice.removeClass('label-success');
       notice.html('No results found');
