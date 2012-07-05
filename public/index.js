@@ -2,7 +2,11 @@ $(document).ready(function() {
 
   var charLimit = 100;
   var fadeInOutTime = 8000;
-  $('#query').on('keydown', search);
+  $('#search-box input').on('keydown', search);
+  $('#search-box #do-search').click(search);
+  $('#search-box #clear-search').click(function() {
+    $('#advanced-search input').val('');
+  });
   $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
   $('.dateinput').datepicker().on('changeDate', function() {

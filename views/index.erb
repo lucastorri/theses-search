@@ -2,7 +2,7 @@
 
 <div id="top" class="well form-search row">
   <div id="search-box" class="span8 pull-left">
-    <i class="icon-search"></i>
+    <i id="search-icon" class="icon-search"></i>
     <a id="advanced-open" href="#"><i class="icon-chevron-down"></i></a>
     <input id="query" type="text" name="query" autofocus="true"
       placeholder="theses search" class="input-large search-query">
@@ -29,6 +29,14 @@
               <input id="start-date" class="dateinput" type="text" name="start-date" placeholder="">&nbsp;to&nbsp;
               <input id="end-date" class="dateinput" type="text" name="end-date" placeholder="">
             </div>
+          </div>
+          <div class="form-actions">
+            <button id="do-search" class="btn btn-primary" type="submit">
+              <i class="icon-search icon-white"></i>&nbsp;Search
+            </button>
+            <button id="clear-search" class="btn" type="submit">
+              <i class="icon-remove"></i>&nbsp;Clear
+            </button>
           </div>
         </fieldset>
       </div>
