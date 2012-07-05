@@ -60,7 +60,8 @@ $(document).ready(function() {
     var key = event.which;
     if(key != 1 && key != 13) 
       return;
-    $(this).ajaxSubmit(searchObj); 
+    $(this).ajaxSubmit(searchObj);
+    $('#advanced-search').fadeOut();
     return false;
   });
 
