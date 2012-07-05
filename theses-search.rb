@@ -1,13 +1,14 @@
 require 'rubygems'
 require 'bundler'
 require 'open-uri'
+require 'date'
 Bundler.require :default
 
 service = 'http://127.0.0.1:8123'
 data_dir = ENV['DATA_DIR']
 
 def read uri
-  URI.parse(URI.encode(uri)).read
+  URI.parse(URI.encode(uri).gsub('[', '%5B').gsub(']', '%5D')).read
 end
 
 get '/' do
@@ -41,8 +42,12 @@ def metadata m
   <<-EOS.gsub(/^ */, '').strip
     title=#{m[:title]}
     author=#{m[:author]}
-    date=#{m[:date]}
+    date=#{parse_date(m[:date])}
   EOS
+end
+
+def parse_date d
+  Date.strptime(d, '%d-%m-%Y').to_time.to_i
 end
 
 post '/upload' do
