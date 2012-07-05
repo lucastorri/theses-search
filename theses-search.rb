@@ -33,6 +33,10 @@ get '/hl' do
   read "#{service}/hl/#{params[:file]}/#{params[:query]}"
 end
 
+get '/download/:file' do
+  "todo"
+end
+
 def metadata m
   <<-EOS.gsub(/^ */, '').strip
     title=#{m[:title]}
