@@ -2,8 +2,66 @@ $(document).ready(function() {
 
   var charLimit = 100;
   var fadeInOutTime = 8000;
-  $('#search-box input').on('keydown', search);
-  $('#search-box #do-search').click(search);
+  //$('#search-box input').on('keydown', search);
+  //$('#search-box #do-search').click(search);
+
+  var searchSpinner;
+  var searchObj = {
+    beforeSubmit: validateSearch,
+    beforeSerialize: function() {
+      $('#results').empty();
+      searchSpinner = startSpinner($('#results').get(0));
+      //TODO put whole query in hash
+      $('#lastQuery').val($('#query').val().trim());
+    },
+    success: showResults
+    //TODO handle errors
+  };
+
+  function validateSearch() {
+    return $('#search-box input').filter(function(i, e) {
+      return e.value.trim() !== '';
+    }).length > 0;
+  }
+
+  function showResults(response) {
+    var postFix = 0;
+    setResponseStatus(response);
+    $(response).each(function(i, doc) {
+      doc.uniqueId = 'unique' + (postFix++);
+      doc.name = doc.metadata.title || doc.id;
+
+      $.get('/snippets', { id: doc.id, query: $('#lastQuery').val() }, function(snippets) {
+        var snippet = snippets[0];
+        snippet.uniqueId = doc.uniqueId;
+        snippet.snipets = [];
+        $(snippet.matches).each(function(i, match) {
+          snippet.snipets.push({
+            oneline: limitTo(match, charLimit),
+            full: match.trim()
+          });
+        });
+        $('#accordion' + doc.uniqueId).empty();
+        $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
+      });
+    });
+    searchSpinner && searchSpinner.stop();
+    $('#doc-template').tmpl(response).appendTo('#results');
+    $('.doc-preview').click(populatePreview);
+    animateSnippetLoad();
+    $('.ttip').tooltip();
+    $('.doc-info').popover();
+  }
+
+
+  $('#search-box').ajaxForm(searchObj).on('keydown', function(event) {
+    var key = event.which;
+    if(key != 1 && key != 13) 
+      return;
+    $(this).ajaxSubmit(searchObj); 
+  });
+
+
   $('#search-box #clear-search').click(function() {
     $('#search-box input').val('');
   });
@@ -28,6 +86,7 @@ $(document).ready(function() {
   $('#query').val(location.hash.replace(/^#/, ''));
   search({which: 1});
   
+  //TODO to be removed
   function search(event) {
     var key = event.which;
     if(key != 1 && key != 13) 
@@ -46,22 +105,22 @@ $(document).ready(function() {
       var postFix = 0;
       setResponseStatus(response);
       $(response).each(function(i, doc) {
-          doc.uniqueId = 'unique' + (postFix++);
-          doc.name = doc.metadata.title || doc.id;
+        doc.uniqueId = 'unique' + (postFix++);
+        doc.name = doc.metadata.title || doc.id;
 
-          $.get('/snippets', { id: doc.id, query: queryText }, function(snippets) {
-            var snippet = snippets[0];
-            snippet.uniqueId = doc.uniqueId;
-            snippet.snipets = [];
-            $(snippet.matches).each(function(i, match) {
-              snippet.snipets.push({
-                oneline: limitTo(match, charLimit),
-                full: match.trim()
-              });
+        $.get('/snippets', { id: doc.id, query: queryText }, function(snippets) {
+          var snippet = snippets[0];
+          snippet.uniqueId = doc.uniqueId;
+          snippet.snipets = [];
+          $(snippet.matches).each(function(i, match) {
+            snippet.snipets.push({
+              oneline: limitTo(match, charLimit),
+              full: match.trim()
             });
-            $('#accordion' + doc.uniqueId).empty();
-            $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
           });
+          $('#accordion' + doc.uniqueId).empty();
+          $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
+        });
       });
       spinner.stop();
       $('#doc-template').tmpl(response).appendTo('#results');
