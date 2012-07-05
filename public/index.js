@@ -5,7 +5,7 @@ $(document).ready(function() {
   $('#search-box input').on('keydown', search);
   $('#search-box #do-search').click(search);
   $('#search-box #clear-search').click(function() {
-    $('#advanced-search input').val('');
+    $('#search-box input').val('');
   });
   $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
