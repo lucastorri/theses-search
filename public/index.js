@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
+  //$('#q').val(location.hash.replace(/^#/, ''));
+
   var charLimit = 100;
   var fadeInOutTime = 8000;
-  //$('#search-box input').on('keydown', search);
-  //$('#search-box #do-search').click(search);
 
   var searchSpinner;
   var searchObj = {
@@ -11,8 +11,9 @@ $(document).ready(function() {
     beforeSerialize: function() {
       $('#results').empty();
       searchSpinner = startSpinner($('#results').get(0));
+      location.hash = $('#search-box').formSerialize();
       //TODO put whole query in hash
-      $('#lastQuery').val($('#query').val().trim());
+      $('#lastQuery').val($('#q').val().trim());
     },
     success: showResults
     //TODO handle errors
@@ -82,54 +83,6 @@ $(document).ready(function() {
     $('#advanced-search').fadeToggle();
     return false;
   });
-
-  $('#query').val(location.hash.replace(/^#/, ''));
-  search({which: 1});
-  
-  //TODO to be removed
-  function search(event) {
-    var key = event.which;
-    if(key != 1 && key != 13) 
-      return;
-
-    $('#no-results').fadeOut();
-    var queryText = $('#query').val().trim();
-    $('#lastQuery').val(queryText);
-    if(!queryText) 
-      return;
-
-    location.hash = queryText;
-    $('#results').empty();
-    var spinner = startSpinner($('#results').get(0));
-    $.get('/search', { query: queryText }, function(response) {
-      var postFix = 0;
-      setResponseStatus(response);
-      $(response).each(function(i, doc) {
-        doc.uniqueId = 'unique' + (postFix++);
-        doc.name = doc.metadata.title || doc.id;
-
-        $.get('/snippets', { id: doc.id, query: queryText }, function(snippets) {
-          var snippet = snippets[0];
-          snippet.uniqueId = doc.uniqueId;
-          snippet.snipets = [];
-          $(snippet.matches).each(function(i, match) {
-            snippet.snipets.push({
-              oneline: limitTo(match, charLimit),
-              full: match.trim()
-            });
-          });
-          $('#accordion' + doc.uniqueId).empty();
-          $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
-        });
-      });
-      spinner.stop();
-      $('#doc-template').tmpl(response).appendTo('#results');
-      $('.doc-preview').click(populatePreview);
-      animateSnippetLoad();
-      $('.ttip').tooltip()
-      $('.doc-info').popover()
-    });
-  }
 
   function animateSnippetLoad() {
     var dots = 0;
