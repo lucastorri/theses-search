@@ -10,13 +10,12 @@
   left: 480px;
 }
 
-#search-box {
-  height: 36px;
-  position: relative;
+input {
+  height: 28px;
 }
 
-#upload-box {
-  text-align: right;
+#search-box {
+  position: relative;
 }
 
 #query {
@@ -25,6 +24,23 @@
   border-radius: 4px;
   padding-left: 30px;
   width: 500px
+}
+
+#advanced-search {
+  width: 460px;
+  position: absolute;
+}
+
+#advanced-search .itext {
+  width: 450px;
+}
+
+#advanced-search .date {
+  width: 180px;
+}
+
+#upload-box {
+  text-align: right;
 }
 
 #results ul {

@@ -5,7 +5,7 @@ $(document).ready(function() {
   $('#query').on('keydown', search);
   $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
-  $('#thesis-date').datepicker().on('changeDate', function() {
+  $('.dateinput').datepicker().on('changeDate', function() {
     $(this).datepicker('hide');
   }).click(function() {
     $(this).datepicker('show');
@@ -15,6 +15,10 @@ $(document).ready(function() {
     uploadProgress: updateUploadStatus,
     success: thesisSubmited,
     error: uploadError
+  });
+  $('#advanced-open').click(function() {
+    $('#advanced-search').fadeToggle();
+    return false;
   });
 
   $('#query').val(location.hash.replace(/^#/, ''));
@@ -56,7 +60,6 @@ $(document).ready(function() {
           });
       });
       spinner.stop();
-      console.log(response);
       $('#doc-template').tmpl(response).appendTo('#results');
       $('.doc-preview').click(populatePreview);
       animateSnippetLoad();
