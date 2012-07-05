@@ -47,13 +47,29 @@ $(document).ready(function() {
                 full: match.trim()
               });
             });
+            $('#accordion' + doc.uniqueId).empty();
             $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
           });
       });
       spinner.stop();
       $('#doc-template').tmpl(response).appendTo('#results');
+      animateSnippetLoad();
       $('.ttip').tooltip()
     });
+  }
+
+  function animateSnippetLoad() {
+    var dots = 0;
+    var t = setInterval(function() {
+      var l = $('.snippet-loading');
+      if (l.length == 0) {
+        clearTimeout(t);
+      }
+      l.each(function(i, e) {
+        $(e).html(new Array(dots + 1).join('.'));
+      });
+      dots = (dots + 1) % 4;
+    }, 400); 
   }
 
 	function setResponseStatus(response) {
@@ -137,7 +153,7 @@ $(document).ready(function() {
     var error = $('#upload-error');
     error.fadeIn();
     $('#thesis-submit').removeClass('disabled')
-    setInterval(function() {
+    setTimeout(function() {
       error.fadeOut();
     }, fadeInOutTime);
   }
@@ -150,7 +166,7 @@ $(document).ready(function() {
     $('#thesis-upload').resetForm();
     $('#thesis-submit').removeClass('disabled');
     $('#upload-progress').hide();
-    setInterval(function() {
+    setTimeout(function() {
       status.fadeOut();
     }, fadeInOutTime);
   }
