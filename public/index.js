@@ -56,10 +56,12 @@ $(document).ready(function() {
           });
       });
       spinner.stop();
+      console.log(response);
       $('#doc-template').tmpl(response).appendTo('#results');
       $('.doc-preview').click(populatePreview);
       animateSnippetLoad();
       $('.ttip').tooltip()
+      $('.doc-info').popover()
     });
   }
 
