@@ -58,6 +58,11 @@ $(document).ready(function() {
 
   $('#search-box').ajaxForm(searchObj).on('keydown', function(event) {
     var key = event.which;
+    if(key == 27) {
+      $('#advanced-search').fadeOut();
+      return;
+    }
+
     if(key != 1 && key != 13) 
       return;
     $(this).ajaxSubmit(searchObj);
