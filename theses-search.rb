@@ -58,7 +58,7 @@ def metadata m
 end
 
 def parse_date d
-  Date.strptime(d, '%d-%m-%Y').to_time.to_i
+  Date.strptime(d, '%d-%m-%Y').to_time.to_i.to_s.rjust(30, '0')
 end
 
 post '/upload' do
