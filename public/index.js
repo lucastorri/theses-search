@@ -15,6 +15,8 @@ $(document).ready(function() {
     uploadProgress: updateUploadStatus,
     success: thesisSubmited,
     error: uploadError
+  }).click(function() {
+    return false;
   });
 
   function search(event) {
