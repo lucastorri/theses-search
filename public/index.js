@@ -15,8 +15,6 @@ $(document).ready(function() {
     uploadProgress: updateUploadStatus,
     success: thesisSubmited,
     error: uploadError
-  }).click(function() {
-    return false;
   });
 
   $('#query').val(location.hash.replace(/^#/, ''));
