@@ -34,7 +34,7 @@ get '/hl' do
 end
 
 get '/download/:file' do
-  "todo"
+  send_file File.join(data_dir, params[:file])
 end
 
 def metadata m
