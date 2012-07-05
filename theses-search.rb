@@ -19,19 +19,30 @@ get '/puc' do
   erb :index, :locals => { :puc => true }
 end
 
+def query p
+  title = "title:(#{p[:title]}) " if not p[:title].to_s.strip.empty?
+  author = "author:(#{p[:author]}) " if not p[:author].to_s.strip.empty?
+  date = 
+    "date:[" + 
+    "#{(p[:startdate].to_s.strip.empty?) ? '*' : parse_date(p[:startdate])} TO " + 
+    "#{(p[:enddate].to_s.strip.empty?) ? '*' : parse_date(p[:enddate])}]".strip if 
+    (not p[:startdate].to_s.strip.empty?) or (not p[:enddate].to_s.strip.empty?)
+  "#{p[:q]} #{title}#{author}#{date}".strip
+end
+
 get '/search' do
   content_type :json
-  read "#{service}/search/#{params[:query]}"
+  read "#{service}/search/#{query(params)}"
 end
 
 get '/snippets' do
   content_type :json
-  read "#{service}/snippets/#{params[:id]}/#{params[:query]}"
+  read "#{service}/snippets/#{params[:id]}/#{params[:q]}"
 end
 
 get '/hl' do
   content_type :json
-  read "#{service}/hl/#{params[:file]}/#{params[:query]}"
+  read "#{service}/hl/#{params[:file]}/#{params[:q]}"
 end
 
 get '/download/:file' do

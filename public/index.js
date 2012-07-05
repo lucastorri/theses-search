@@ -11,7 +11,7 @@ $(document).ready(function() {
     beforeSerialize: function() {
       $('#results').empty();
       searchSpinner = startSpinner($('#results').get(0));
-      location.hash = $('#search-box').formSerialize();
+      //location.hash = $('#search-box').formSerialize();
       //TODO put whole query in hash
       $('#lastQuery').val($('#q').val().trim());
     },
@@ -31,19 +31,20 @@ $(document).ready(function() {
     $(response).each(function(i, doc) {
       doc.uniqueId = 'unique' + (postFix++);
       doc.name = doc.metadata.title || doc.id;
-
-      $.get('/snippets', { id: doc.id, query: $('#lastQuery').val() }, function(snippets) {
+      $.get('/snippets', { id: doc.id, q: $('#lastQuery').val() }, function(snippets) {
         var snippet = snippets[0];
-        snippet.uniqueId = doc.uniqueId;
-        snippet.snipets = [];
-        $(snippet.matches).each(function(i, match) {
-          snippet.snipets.push({
-            oneline: limitTo(match, charLimit),
-            full: match.trim()
-          });
-        });
         $('#accordion' + doc.uniqueId).empty();
-        $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
+        if (snippet) {
+          snippet.uniqueId = doc.uniqueId;
+          snippet.snipets = [];
+          $(snippet.matches).each(function(i, match) {
+            snippet.snipets.push({
+              oneline: limitTo(match, charLimit),
+              full: match.trim()
+            });
+          });
+          $('#matches-template').tmpl(snippet).appendTo('#accordion' + doc.uniqueId);
+        }
       });
     });
     searchSpinner && searchSpinner.stop();
@@ -60,6 +61,7 @@ $(document).ready(function() {
     if(key != 1 && key != 13) 
       return;
     $(this).ajaxSubmit(searchObj); 
+    return false;
   });
 
 
@@ -160,7 +162,7 @@ $(document).ready(function() {
   function populatePreview() {
     var e = $(this);
     $('#preview-title').html(e.data('name'));
-    $.get('/hl', { file: e.data('id'), query: lastQuery() }, function(response) {
+    $.get('/hl', { file: e.data('id'), q: lastQuery() }, function(response) {
       $('#preview-content').html(response[0].matches[0]);
       previewSpinner.stop();
       $('#preview').show();
