@@ -19,17 +19,21 @@ $(document).ready(function() {
     return false;
   });
 
+  $('#query').val(location.hash.replace(/^#/, ''));
+  search({which: 1});
+  
   function search(event) {
     var key = event.which;
     if(key != 1 && key != 13) 
       return;
-    
+
     $('#no-results').fadeOut();
     var queryText = $('#query').val().trim();
     $('#lastQuery').val(queryText);
     if(!queryText) 
       return;
 
+    location.hash = queryText;
     $('#results').empty();
     var spinner = startSpinner($('#results').get(0));
     $.get('/search', { query: queryText }, function(response) {
