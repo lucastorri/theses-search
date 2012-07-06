@@ -8,21 +8,28 @@ $(document).ready(function() {
   var searchSpinner;
   var searchObj = {
     beforeSubmit: validateSearch,
-    beforeSerialize: function() {
+    beforeSerialize: function(form) {
       $('#results').empty();
       searchSpinner = startSpinner($('#results').get(0));
-      //location.hash = $('#search-box').formSerialize();
-      //TODO put whole query in hash
       $('#lastQuery').val($('#q').val().trim());
     },
     success: showResults
     //TODO handle errors
   };
 
-  function validateSearch() {
-    return $('#search-box input').filter(function(i, e) {
+  function validateSearch(inputs) {
+    var ok = $('#search-box input').filter(function(i, e) {
       return e.value.trim() !== '';
     }).length > 0;
+
+    var obj = {};
+    ok && $(inputs).each(function(i,e) {
+      if (e.value) obj[e.name] = e.value;
+    });
+    $.bbq.removeState();
+    $.bbq.pushState(obj);
+
+    return ok;
   }
 
   function showResults(response) {
@@ -55,8 +62,9 @@ $(document).ready(function() {
     $('.doc-info').popover();
   }
 
+  $('#search-box').ajaxForm(searchObj).on('keydown', triggerSearch);
 
-  $('#search-box').ajaxForm(searchObj).on('keydown', function(event) {
+  function triggerSearch(event) {
     var key = event.which;
     if(key == 27) {
       $('#advanced-search').fadeOut();
@@ -65,11 +73,10 @@ $(document).ready(function() {
 
     if(key != 1 && key != 13) 
       return;
-    $(this).ajaxSubmit(searchObj);
+    $('#search-box').ajaxSubmit(searchObj);
     $('#advanced-search').fadeOut();
     return false;
-  });
-
+  }
 
   $('#search-box #clear-search').click(function() {
     $('#search-box input').val('');
@@ -218,4 +225,14 @@ $(document).ready(function() {
     $('#upload-error').hide();
     $("#upload").show();
   });
+
+  (function() {
+    var state = $.bbq.getState();
+    var hasProp = false;
+    for (var f in state) {
+      $('#' + f).val(state[f]);
+      hasProp = true;
+    }
+    hasProp && triggerSearch({which: 1});
+  })();
 });
