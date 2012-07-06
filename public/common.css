@@ -43,6 +43,10 @@ input {
   text-align: right;
 }
 
+.datepicker {
+  width: 250px;
+}
+
 #results ul {
   margin-right: 25px;
   margin-bottom: 0px;

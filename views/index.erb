@@ -5,7 +5,7 @@
     <i id="search-icon" class="icon-search"></i>
     <a id="advanced-open" href="#"><i class="icon-chevron-down"></i></a>
     <input id="q" type="text" name="q" autofocus="true"
-      placeholder="theses search" class="input-large search-query">
+      placeholder="theses search" class="input-large search-query" />
 		<span id="no-results" class="label hide"></span>
     <div id="advanced-search" class="well hide">
       <h3>Advanced Search</h3>
@@ -14,20 +14,22 @@
           <div class="control-group">
             <label class="control-label" for="title">Title</label>
             <div class="controls">
-              <input id="title" class="itext" type="text" name="title" placeholder="">
+              <input id="title" class="itext" type="text" name="title" placeholder="" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="author">Author</label>
             <div class="controls">
-              <input id="author" class="itext" type="text" name="author" placeholder="">
+              <input id="author" class="itext" type="text" name="author" placeholder="" />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="start-date">Date</label>
             <div class="controls">
-              <input id="start-date" class="dateinput" type="text" name="startdate" data-date-format="dd-mm-yyyy">&nbsp;to&nbsp;
-              <input id="end-date" class="dateinput" type="text" name="enddate" data-date-format="dd-mm-yyyy">
+              <input id="start-date" class="dateinput" type="text" name="startdate" 
+                data-date-format="dd-mm-yyyy" data-date-autoclose="true" />&nbsp;to&nbsp;
+              <input id="end-date" class="dateinput" type="text" name="enddate" 
+                data-date-format="dd-mm-yyyy" data-date-autoclose="true"/>
             </div>
           </div>
           <div class="form-actions">
@@ -104,27 +106,26 @@
         <div class="control-group">
           <label class="control-label" for="thesis-title">Title</label>
           <div class="controls">
-            <input id="thesis-title" type="text" name="title" placeholder="Some nice title">
+            <input id="thesis-title" type="text" name="title" placeholder="Some nice title" />
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="thesis-author">Author(s)</label>
           <div class="controls">
-            <input id="thesis-author" type="text" name="author" placeholder="John Doe">
+            <input id="thesis-author" type="text" name="author" placeholder="John Doe" />
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="thesis-date">Date</label>
           <div class="controls">
-            <% today = Time.now.strftime('%d-%m-%Y') %>
-            <input id="thesis-date" class="dateinput" type="text" name="date" value="<%= today %>" 
-              data-date="<%= today %>" data-date-format="dd-mm-yyyy" placeholder="<%= today %>">
+            <input id="thesis-date" class="dateinput" type="text" name="date" 
+              data-date-format="dd-mm-yyyy" data-date-autoclose="true" />
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="thesis-doc">Document</label>
           <div class="controls">
-            <input id="thesis-doc" type="file" name="doc">
+            <input id="thesis-doc" type="file" name="doc" />
           </div>
         </div>
         <div class="form-actions">

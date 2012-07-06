@@ -84,9 +84,7 @@ $(document).ready(function() {
   });
   $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
-  $('.dateinput').datepicker().on('changeDate', function() {
-    $(this).datepicker('hide');
-  }).click(function() {
+  $('.dateinput').datepicker().click(function() {
     $(this).datepicker('show');
   });
   $('#thesis-upload').ajaxForm({
