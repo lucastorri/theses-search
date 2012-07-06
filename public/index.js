@@ -231,7 +231,7 @@ $(document).ready(function() {
     var state = $.bbq.getState();
     var hasProp = false;
     for (var f in state) {
-      $('#' + f).val(state[f]);
+      $('#search-box #' + f).val(state[f]);
       hasProp = true;
     }
     hasProp && triggerSearch({which: 1});
