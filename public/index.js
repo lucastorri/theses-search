@@ -80,6 +80,7 @@ $(document).ready(function() {
 
   $('#search-box #clear-search').click(function() {
     $('#search-box input').val('');
+    return false;
   });
   $('#preview').on('show', preparePreview);
 	$('#no-results').hide();
