@@ -12,6 +12,7 @@ $(document).ready(function() {
       $('#results').empty();
       searchSpinner = startSpinner($('#results').get(0));
       $('#lastQuery').val($('#q').val().trim());
+      $('#advanced-search').fadeOut();
     },
     success: showResults
     //TODO handle errors
@@ -74,7 +75,6 @@ $(document).ready(function() {
     if(key != 1 && key != 13) 
       return;
     $('#search-box').ajaxSubmit(searchObj);
-    $('#advanced-search').fadeOut();
     return false;
   }
 
