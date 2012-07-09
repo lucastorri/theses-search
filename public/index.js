@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   var charLimit = 100;
   var fadeInOutTime = 8000;
+  $('#open-advanced').tooltip({placement: 'right', position: {top: 20, left: 520}});
 
   var searchSpinner;
   var searchObj = {
@@ -93,8 +94,10 @@ $(document).ready(function() {
     success: thesisSubmited,
     error: uploadError
   });
-  $('#advanced-open').click(function() {
+  $('#open-advanced').click(function() {
     $('#advanced-search').fadeToggle();
+    $('#advanced-open').fadeToggle();
+    $('#advanced-closed').fadeToggle();
     return false;
   });
 
