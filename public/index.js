@@ -27,6 +27,8 @@ $(document).ready(function() {
       searchSpinner = startSpinner($('#results').get(0));
       $('#lastQuery').val($('#q').val().trim());
       $('#advanced-search').fadeOut();
+      $('#advanced-open').fadeIn();
+      $('#advanced-closed').fadeOut();
       $.bbq.removeState();
       $.bbq.pushState(obj);
     }
