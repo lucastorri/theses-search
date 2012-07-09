@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   var charLimit = 100;
   var fadeInOutTime = 8000;
-  $('#open-advanced').tooltip({placement: 'right', position: {top: 20, left: 520}});
+  $('#open-advanced').tooltip({placement: 'bottom', position: {top: 45, left: 450}});
 
   var searchSpinner;
   var searchObj = {
