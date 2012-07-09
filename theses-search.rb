@@ -4,6 +4,18 @@ require 'open-uri'
 require 'date'
 Bundler.require :default
 
+class String
+  def blank?
+    self.strip.empty?
+  end
+end
+
+class NilClass
+  def blank?
+    true
+  end
+end
+
 service = 'http://127.0.0.1:8123'
 data_dir = ENV['DATA_DIR']
 
@@ -20,13 +32,13 @@ get '/puc' do
 end
 
 def query p
-  title = "title:(#{p[:title]}) " if not p[:title].to_s.strip.empty?
-  author = "author:(#{p[:author]}) " if not p[:author].to_s.strip.empty?
+  title = "title:(#{p[:title]}) " if not p[:title].blank?
+  author = "author:(#{p[:author]}) " if not p[:author].blank?
   date = 
     "date:[" + 
-    "#{(p[:startdate].to_s.strip.empty?) ? '*' : parse_date(p[:startdate])} TO " + 
-    "#{(p[:enddate].to_s.strip.empty?) ? '*' : parse_date(p[:enddate])}]".strip if 
-    (not p[:startdate].to_s.strip.empty?) or (not p[:enddate].to_s.strip.empty?)
+    "#{(p[:startdate].blank?) ? '*' : parse_date(p[:startdate])} TO " + 
+    "#{(p[:enddate].blank?) ? '*' : parse_date(p[:enddate])}]".strip if 
+    (not p[:startdate].blank?) or (not p[:enddate].blank?)
   "#{p[:q]} #{title}#{author}#{date}".strip
 end
 
@@ -62,11 +74,11 @@ def parse_date d
 end
 
 post '/upload' do
+  halt 400 if not params.values_at(:doc, :title, :author, :date).select {|f| f.blank?}.empty?
+  
   thesis = params[:doc]
-  unless thesis.nil?
-    file = data_dir + '/' + thesis[:filename]
-    File.open(file, "w") { |f| f.write(thesis[:tempfile].read) } # move instead of read/write ?
-    File.open(file + '.metadata', "w") { |f| f.write(metadata(params)) }
-  end
-	return
+  file = data_dir + '/' + thesis[:filename]
+  File.open(file, "w") { |f| f.write(thesis[:tempfile].read) } # move instead of read/write ?
+  File.open(file + '.metadata', "w") { |f| f.write(metadata(params)) }
+  return
 end
