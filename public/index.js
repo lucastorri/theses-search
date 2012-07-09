@@ -96,8 +96,7 @@ $(document).ready(function() {
   });
   $('#open-advanced').click(function() {
     $('#advanced-search').fadeToggle();
-    $('#advanced-open').fadeToggle();
-    $('#advanced-closed').fadeToggle();
+    $('.advanced-icon').fadeToggle();
     return false;
   });
 
