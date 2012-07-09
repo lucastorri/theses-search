@@ -11,26 +11,26 @@ $(document).ready(function() {
     beforeSubmit: validateSearch,
     beforeSerialize: function(form) {
       $('#results').empty();
-      searchSpinner = startSpinner($('#results').get(0));
-      $('#lastQuery').val($('#q').val().trim());
-      $('#advanced-search').fadeOut();
     },
     success: showResults
     //TODO handle errors
   };
 
   function validateSearch(inputs) {
-    var ok = $('#search-box input').filter(function(i, e) {
-      return e.value.trim() !== '';
-    }).length > 0;
+    var ok = $('#search-box input:[value=""]').length != inputs.length;
 
-    var obj = {};
-    ok && $(inputs).each(function(i,e) {
-      if (e.value) obj[e.name] = e.value;
-    });
-    $.bbq.removeState();
-    $.bbq.pushState(obj);
-
+    if (ok) {
+      var obj = {};
+      $(inputs).each(function(i,e) {
+        if (e.value) obj[e.name] = e.value;
+      });
+      searchSpinner = startSpinner($('#results').get(0));
+      $('#lastQuery').val($('#q').val().trim());
+      $('#advanced-search').fadeOut();
+      $.bbq.removeState();
+      $.bbq.pushState(obj);
+    }
+    
     return ok;
   }
 
