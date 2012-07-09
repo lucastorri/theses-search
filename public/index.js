@@ -88,7 +88,7 @@ $(document).ready(function() {
     $(this).datepicker('show');
   });
   $('#thesis-upload').ajaxForm({
-    beforeSend: resetUploadStatus,
+    beforeSubmit: resetUploadStatus,
     uploadProgress: updateUploadStatus,
     success: thesisSubmited,
     error: uploadError
@@ -181,11 +181,24 @@ $(document).ready(function() {
     });
   }
 
-  function resetUploadStatus() {
-    $('#upload-progress').show();
+  function resetUploadStatus(form) {
+    var valid = $("#thesis-upload input:[value='']").length == 0;
     $('#upload-progress .bar').width(0).show();
-    $('#thesis-submit').addClass('disabled')
-    $('#upload-error').hide();
+    var error = $('#validation-error');
+    error.fadeOut();
+
+    if (valid) {
+      $('#upload-progress').show();
+      $('#thesis-submit').addClass('disabled')
+      $('#upload-error').hide();
+    } else {
+      error.fadeIn();
+      setTimeout(function() {
+        error.fadeOut();
+      }, fadeInOutTime);
+    }
+
+    return valid;
   }
 
   function updateUploadStatus(e, position, total, percent) {

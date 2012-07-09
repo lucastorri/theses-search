@@ -74,7 +74,7 @@ def parse_date d
 end
 
 post '/upload' do
-  halt 400 if not params.values_at(:doc, :title, :author, :date).select {|f| f.blank?}.empty?
+  halt 400 if not params.values_at(:doc, :title, :author, :date).select { |f| f.blank? }.empty?
   
   thesis = params[:doc]
   file = data_dir + '/' + thesis[:filename]
