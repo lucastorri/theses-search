@@ -147,6 +147,10 @@ var limitTo = function() {
             }
         }
 
+        if (matchesIndex.length == 0) {
+            return s.trim().substring(0, limit);
+        }
+
         var steppers = function() {
             var ss = [];
             var last = null;

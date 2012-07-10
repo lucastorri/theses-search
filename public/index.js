@@ -25,7 +25,6 @@ $(document).ready(function() {
         if (e.value) obj[e.name] = e.value;
       });
       searchSpinner = startSpinner($('#results').get(0));
-      $('#lastQuery').val($('#q').val().trim());
       $('#advanced-search').fadeOut();
       $('#advanced-open').fadeIn();
       $('#advanced-closed').fadeOut();
@@ -42,7 +41,9 @@ $(document).ready(function() {
     $(response).each(function(i, doc) {
       doc.uniqueId = 'unique' + (postFix++);
       doc.name = doc.metadata.title || doc.id;
-      $.get('/snippets', { id: doc.id, q: $('#lastQuery').val() }, function(snippets) {
+      var fields = lastQuery();
+      fields.id = doc.id;
+      $.get('/snippets', fields, function(snippets) {
         var snippet = snippets[0];
         $('#accordion' + doc.uniqueId).empty();
         if (snippet) {
@@ -178,7 +179,7 @@ $(document).ready(function() {
   function populatePreview() {
     var e = $(this);
     $('#preview-title').html(e.data('name'));
-    $.get('/hl', { file: e.data('id'), q: lastQuery() }, function(response) {
+    $.get('/hl', { file: e.data('id'), q: lastQuery().q }, function(response) {
       $('#preview-content').html(response[0].matches[0]);
       previewSpinner.stop();
       $('#preview').show();
@@ -233,7 +234,7 @@ $(document).ready(function() {
   }
 
   function lastQuery() { 
-    return $('#lastQuery').val();
+    return $.bbq.getState();
   }
 
   $("#open-upload").click(function () {

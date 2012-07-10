@@ -49,7 +49,7 @@ end
 
 get '/snippets' do
   content_type :json
-  read "#{service}/snippets/#{params[:id]}/#{params[:q]}"
+  read "#{service}/snippets/#{params[:id]}/#{query(params)}"
 end
 
 get '/hl' do
