@@ -54,7 +54,7 @@ end
 
 get '/hl' do
   content_type :json
-  read "#{service}/hl/#{params[:file]}/#{params[:q]}"
+  read "#{service}/hl/#{params[:file]}/#{query(params)}"
 end
 
 get '/download/:file' do

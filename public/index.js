@@ -179,7 +179,9 @@ $(document).ready(function() {
   function populatePreview() {
     var e = $(this);
     $('#preview-title').html(e.data('name'));
-    $.get('/hl', { file: e.data('id'), q: lastQuery().q }, function(response) {
+    var params = lastQuery();
+    params.file = e.data('id');
+    $.get('/hl', params, function(response) {
       $('#preview-content').html(response[0].matches[0]);
       previewSpinner.stop();
       $('#preview').show();
