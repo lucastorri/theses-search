@@ -10,6 +10,12 @@ class String
   end
 end
 
+class Hash
+  def blank?
+    self.empty?
+  end
+end
+
 class NilClass
   def blank?
     true
